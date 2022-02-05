@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useViewport from '../../hooks/useViewport';
+import {connect} from 'react-redux';
 
 //custom components
 import SelectStatus from './SelectStatus';
@@ -100,8 +101,14 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
+const mapStateToProps = state => {
+  return {
+    statusUpdateLoading : state.ui.loading,
+  }
+}
+
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default EnhancedTableToolbar;
+export default connect(mapStateToProps)(EnhancedTableToolbar);

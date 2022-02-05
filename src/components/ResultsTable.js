@@ -12,7 +12,7 @@ import TableHeadMobile from './resultsTableParts/TableHeadMobile';
 //Main component
 
 
-function ResultsTable({rows, unitNo, onButtonClickedHandler, handleSelectAllClick, handleClick, selected, foundUnit, authenticated, statusUpdateLoading}) {
+function ResultsTable({rows, unitNo, onButtonClickedHandler, handleSelectAllClick, handleClick, selected, foundUnit, authenticated}) {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('');
  
@@ -45,7 +45,6 @@ function ResultsTable({rows, unitNo, onButtonClickedHandler, handleSelectAllClic
         <EnhancedTableToolbar
           numSelected={selected.length}
           onButtonClicked={onButtonClickedHandler}
-          statusUpdateLoading={statusUpdateLoading}
         />
         {width > 900 ? (
           <Table sx={{ minWidth: 650 }} aria-label="results table">

@@ -2,7 +2,9 @@ import React, { useCallback, useRef, forwardRef } from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
+import { connect } from 'react-redux';
 
+//coponents
 import Header from './components/Header';
 import Hero from './components/Hero';
 import UnitSearch from './components/UnitSearch';
@@ -11,6 +13,10 @@ import SignIn from './components/forms/SignIn';
 import SignUp from './components/forms/SignUp';
 import Footer from './components/Footer';
 
+//actions
+import { setStatusUpdateLoading } from './redux/uiActions';
+
+//mui stuff
 import MuiAlert from '@mui/material/Alert';
 import { Snackbar } from '@mui/material';
 
@@ -23,7 +29,7 @@ const Alert = forwardRef(function Alert(props, ref) {
 
 // let unitNo = 'B7NZ1111'
 
-const App = () => {
+const App = ({setStatusUpdateLoading}) => {
   const unitNoInputRef = useRef();
   const firstLoad = useRef(true);
 
@@ -35,7 +41,7 @@ const App = () => {
   const [signInOpen, setSignInOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [username, setUsername] = useState('');
-  const [statusUpdateLoading, setStatusUpdateLoading] = useState(false);
+  // const [statusUpdateLoading, setStatusUpdateLoading] = useState(false);
   const [showSnackbar, setShowSnackBar] = useState({show: false, severity: 'success'});
 
   const [authenticated, setAuthenticated] = useState(false);
@@ -150,6 +156,7 @@ const App = () => {
           status: status,
         }));
 
+        // setStatusUpdateLoading(true);
         setStatusUpdateLoading(true);
         axios
           .patch(
@@ -235,7 +242,6 @@ const App = () => {
           selected={selected}
           foundUnit={foundUnit}
           authenticated={authenticated}
-          statusUpdateLoading={statusUpdateLoading}
         />
       </main>
       <Footer />
@@ -261,4 +267,10 @@ const App = () => {
   );
 };
 
-export default App;
+const mapDispatchToProps = {
+  setStatusUpdateLoading
+}
+
+
+
+export default connect(null, mapDispatchToProps)(App);
