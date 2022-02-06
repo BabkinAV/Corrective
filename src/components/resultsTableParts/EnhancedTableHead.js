@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Checkbox from '@mui/material/Checkbox';
 import TableHead from '@mui/material/TableHead';
 import TableCell from '@mui/material/TableCell';
@@ -94,7 +95,13 @@ function EnhancedTableHead(props) {
   );
 }
 
-export default EnhancedTableHead;
+const mapStateToProps = state => {
+  return {
+    authenticated: state.ui.authenticated
+  }
+}
+
+export default connect(mapStateToProps)(EnhancedTableHead);
 
 EnhancedTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,

@@ -103,7 +103,7 @@ const EnhancedTableToolbar = (props) => {
 
 const mapStateToProps = state => {
   return {
-    statusUpdateLoading : state.ui.loading,
+    statusUpdateLoading : state.ui.statusUpdateLoading,
   }
 }
 

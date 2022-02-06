@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, FormControlLabel, Button, Typography } from '@mui/material';
+import { connect } from 'react-redux';
 
 import TableSortLabel from '@mui/material/TableSortLabel';
 
@@ -99,4 +100,11 @@ function TableHeadMobile(props) {
   );
 }
 
-export default TableHeadMobile;
+const mapStateToProps = state => {
+  return {
+    authenticated : state.ui.authenticated,
+  }
+}
+
+
+export default connect(mapStateToProps)(TableHeadMobile);

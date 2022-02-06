@@ -14,7 +14,10 @@ import SignUp from './components/forms/SignUp';
 import Footer from './components/Footer';
 
 //actions
-import { setStatusUpdateLoading } from './redux/uiActions';
+import { setStatusUpdateLoading } from './redux/actions/uiActions';
+import { setAuthenticated } from './redux/actions/uiActions';
+import { setSelected } from './redux/actions/dataActions';
+
 
 //mui stuff
 import MuiAlert from '@mui/material/Alert';
@@ -29,22 +32,20 @@ const Alert = forwardRef(function Alert(props, ref) {
 
 // let unitNo = 'B7NZ1111'
 
-const App = ({setStatusUpdateLoading}) => {
+const App = ({setStatusUpdateLoading, authenticated, setAuthenticated, selected, setSelected}) => {
   const unitNoInputRef = useRef();
-  const firstLoad = useRef(true);
+  const firstLoad = useRef(true); 
 
   const [rows, setRows] = useState([]);
-  const [selected, setSelected] = useState([]);
+  // const [selected, setSelected] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [unitNo, setUnitNo] = useState('B7NZ2222');
   const [foundUnit, setFoundUnit] = useState(true);
   const [signInOpen, setSignInOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [username, setUsername] = useState('');
-  // const [statusUpdateLoading, setStatusUpdateLoading] = useState(false);
   const [showSnackbar, setShowSnackBar] = useState({show: false, severity: 'success'});
 
-  const [authenticated, setAuthenticated] = useState(false);
 
 
   const fetchInstructionsHandler = useCallback(() => {
@@ -96,7 +97,7 @@ const App = ({setStatusUpdateLoading}) => {
         setAuthenticated(false);
       }
     }
-  }, []);
+  }, [setAuthenticated]);
 
   useEffect(()=>{
     if (authenticated) {
@@ -156,7 +157,6 @@ const App = ({setStatusUpdateLoading}) => {
           status: status,
         }));
 
-        // setStatusUpdateLoading(true);
         setStatusUpdateLoading(true);
         axios
           .patch(
@@ -206,6 +206,7 @@ const App = ({setStatusUpdateLoading}) => {
     localStorage.removeItem('FBIdToken');
     delete axios.defaults.headers.common['Authorization'];
     setAuthenticated(false);
+    setSelected([]);
     setUsername('');
   };
 
@@ -222,7 +223,6 @@ const App = ({setStatusUpdateLoading}) => {
       <Header
         setSignInOpen={() => setSignInOpen(true)}
         setSignUpOpen={() => setSignUpOpen(true)}
-        authenticated={authenticated}
         setLogout={logoutHandler}
         username={username}
       />
@@ -241,7 +241,6 @@ const App = ({setStatusUpdateLoading}) => {
           handleClick={handleClick}
           selected={selected}
           foundUnit={foundUnit}
-          authenticated={authenticated}
         />
       </main>
       <Footer />
@@ -267,10 +266,21 @@ const App = ({setStatusUpdateLoading}) => {
   );
 };
 
+const mapStateToProps = state => {
+  return {
+    authenticated : state.ui.authenticated,
+    selected: state.data.selected
+  }
+}
+
+
 const mapDispatchToProps = {
-  setStatusUpdateLoading
+  setStatusUpdateLoading,
+  setAuthenticated,
+  setSelected
 }
 
 
 
-export default connect(null, mapDispatchToProps)(App);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

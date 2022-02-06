@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import getComparator from '../../helpers/getComparator';
 import ResultSingleMobile from './ResultSingleMobile';
@@ -37,4 +38,11 @@ function ResultsMobile({ rows, order, orderBy, selected, onCheckboxClick, authen
   );
 }
 
-export default ResultsMobile;
+const mapStateToProps = state => {
+  return {
+    authenticated : state.ui.authenticated,
+  }
+}
+
+
+export default connect(mapStateToProps)(ResultsMobile);
