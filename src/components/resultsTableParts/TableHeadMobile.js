@@ -103,6 +103,7 @@ function TableHeadMobile(props) {
 const mapStateToProps = state => {
   return {
     authenticated : state.ui.authenticated,
+    numSelected : state.data.selected.length
   }
 }
 

@@ -12,7 +12,7 @@ import TableHeadMobile from './resultsTableParts/TableHeadMobile';
 //Main component
 
 
-function ResultsTable({rows, unitNo, onButtonClickedHandler, handleSelectAllClick, handleClick, selected, foundUnit}) {
+function ResultsTable({rows, unitNo, onButtonClickedHandler, handleSelectAllClick, handleClick, foundUnit}) {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('');
  
@@ -43,13 +43,11 @@ function ResultsTable({rows, unitNo, onButtonClickedHandler, handleSelectAllClic
       </Grid>
       {foundUnit && <Grid item xs={12} sx={{ mb: 2 }}>
         <EnhancedTableToolbar
-          numSelected={selected.length}
           onButtonClicked={onButtonClickedHandler}
         />
         {width > 900 ? (
           <Table sx={{ minWidth: 650 }} aria-label="results table">
             <EnhancedTableHead
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
@@ -60,14 +58,12 @@ function ResultsTable({rows, unitNo, onButtonClickedHandler, handleSelectAllClic
               rows={rows}
               order={order}
               orderBy={orderBy}
-              selected={selected}
               onCheckboxClick={handleClick}
               />
           </Table>
         ) : (
           <Box>
             <TableHeadMobile
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
@@ -78,7 +74,6 @@ function ResultsTable({rows, unitNo, onButtonClickedHandler, handleSelectAllClic
               rows={rows}
               order={order}
               orderBy={orderBy}
-              selected={selected}
               onCheckboxClick={handleClick}
             />
           </Box>

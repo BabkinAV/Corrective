@@ -104,6 +104,7 @@ const EnhancedTableToolbar = (props) => {
 const mapStateToProps = state => {
   return {
     statusUpdateLoading : state.ui.statusUpdateLoading,
+    numSelected : state.data.selected.length
   }
 }
 

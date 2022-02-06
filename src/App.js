@@ -37,7 +37,6 @@ const App = ({setStatusUpdateLoading, authenticated, setAuthenticated, selected,
   const firstLoad = useRef(true); 
 
   const [rows, setRows] = useState([]);
-  // const [selected, setSelected] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [unitNo, setUnitNo] = useState('B7NZ2222');
   const [foundUnit, setFoundUnit] = useState(true);
@@ -239,7 +238,6 @@ const App = ({setStatusUpdateLoading, authenticated, setAuthenticated, selected,
           onButtonClickedHandler={onButtonClickedHandler}
           handleSelectAllClick={handleSelectAllClick}
           handleClick={handleClick}
-          selected={selected}
           foundUnit={foundUnit}
         />
       </main>
