@@ -15,14 +15,13 @@ import Footer from './components/Footer';
 
 //actions
 import {
-  setStatusUpdateLoading,
   setAuthenticated,
   setShowSnackBar,
 } from './redux/actions/uiActions';
 import {
   setSelected,
   setRows,
-  updateRowsStatus,
+  setUnitNo
 } from './redux/actions/dataActions';
 
 //mui stuff
@@ -38,22 +37,21 @@ const Alert = forwardRef(function Alert(props, ref) {
 // let unitNo = 'B7NZ1111'
 
 const App = ({
-  setStatusUpdateLoading,
   authenticated,
   setAuthenticated,
   selected,
   setSelected,
   setRows,
   rows,
-  updateRowsStatus,
   showSnackbar,
   setShowSnackBar,
+  unitNo,
+  setUnitNo
 }) => {
   const unitNoInputRef = useRef();
   const firstLoad = useRef(true);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [unitNo, setUnitNo] = useState('B7NZ2222');
   const [foundUnit, setFoundUnit] = useState(true);
   const [signInOpen, setSignInOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
@@ -87,7 +85,7 @@ const App = ({
       .then(() => {
         setIsLoading(false);
       });
-  }, [firstLoad, setRows]);
+  }, [firstLoad, setRows, setUnitNo]);
 
   useEffect(() => {
     fetchInstructionsHandler();
@@ -156,39 +154,6 @@ const App = ({
     setSelected(newSelected);
   };
 
-  const onButtonClickedHandler = (type, status) => {
-    //Pass in selected as argument
-    if (type === 'SAVE') {
-      if (selected.length > 0) {
-        let arrayToSaveDb = selected.map((el) => ({
-          docId: el,
-          status: status,
-        }));
-
-        setStatusUpdateLoading(true);
-        axios
-          .patch(
-            `https://europe-west1-corrective-afe97.cloudfunctions.net/api/updateunit/${unitNo}`,
-            arrayToSaveDb
-          )
-          .then((response) => {
-            updateRowsStatus(status);
-            setSelected([]);
-            setStatusUpdateLoading(false);
-            setShowSnackBar({ show: true, severity: 'success' });
-          })
-          .catch((error) => {
-            // handle error
-            setStatusUpdateLoading(false);
-            setShowSnackBar({ show: true, severity: 'error' });
-            setSelected([]);
-            console.log(error);
-          });
-      }
-    } else if (type === 'CANCEL') {
-      setSelected([]);
-    }
-  };
 
   const setAuthorizationHeader = (token) => {
     const FBIdToken = `bearer ${token}`;
@@ -236,7 +201,6 @@ const App = ({
         />
         <ResultsTable
           unitNo={unitNo}
-          onButtonClickedHandler={onButtonClickedHandler}
           handleSelectAllClick={handleSelectAllClick}
           handleClick={handleClick}
           foundUnit={foundUnit}
@@ -273,16 +237,16 @@ const mapStateToProps = (state) => {
     showSnackbar: state.ui.showSnackbar,
     selected: state.data.selected,
     rows: state.data.rows,
+    unitNo: state.data.unitNo
   };
 };
 
 const mapDispatchToProps = {
-  setStatusUpdateLoading,
   setAuthenticated,
   setSelected,
   setRows,
-  updateRowsStatus,
   setShowSnackBar,
+  setUnitNo
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

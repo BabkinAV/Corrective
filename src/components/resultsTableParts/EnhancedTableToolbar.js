@@ -1,10 +1,11 @@
 import { React, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import useViewport from '../../hooks/useViewport';
 import {connect} from 'react-redux';
 
 //custom components
 import SelectStatus from './SelectStatus';
+
+import { saveStatus, setSelected } from '../../redux/actions/dataActions';
 
 import { alpha } from '@mui/material/styles';
 import { Button, Typography } from '@mui/material';
@@ -16,7 +17,9 @@ import SaveIcon from '@mui/icons-material/SaveAs';
 import CancelIcon from '@mui/icons-material/Cancel';
 
 const EnhancedTableToolbar = (props) => {
-  const { numSelected, onButtonClicked, statusUpdateLoading} = props;
+  const { selected, statusUpdateLoading, saveStatus, unitNo, setSelected} = props;
+
+  const numSelected = selected.length;
 
   const [selectStatus, setSelectStatus] = useState(null);
 
@@ -75,7 +78,7 @@ const EnhancedTableToolbar = (props) => {
               loading={statusUpdateLoading}
               disabled={!selectStatus}
               onClick={() => {
-                onButtonClicked('SAVE', selectStatus);
+                saveStatus(selected, selectStatus, unitNo);
               }}
               startIcon={<SaveIcon />}
               sx={{ mr: '1rem' }}
@@ -88,7 +91,7 @@ const EnhancedTableToolbar = (props) => {
               startIcon={<CancelIcon />}
               disabled={statusUpdateLoading}
               onClick={() => {
-                onButtonClicked('CANCEL');
+                setSelected([]);
               }}
             >
               Cancel
@@ -104,12 +107,9 @@ const EnhancedTableToolbar = (props) => {
 const mapStateToProps = state => {
   return {
     statusUpdateLoading : state.ui.statusUpdateLoading,
-    numSelected : state.data.selected.length
+    selected : state.data.selected,
+    unitNo: state.data.unitNo
   }
 }
 
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
-
-export default connect(mapStateToProps)(EnhancedTableToolbar);
+export default connect(mapStateToProps, {saveStatus, setSelected})(EnhancedTableToolbar);

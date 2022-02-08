@@ -12,7 +12,7 @@ import TableHeadMobile from './resultsTableParts/TableHeadMobile';
 //Main component
 
 
-function ResultsTable({ unitNo, onButtonClickedHandler, handleSelectAllClick, handleClick, foundUnit}) {
+function ResultsTable({ unitNo, handleSelectAllClick, handleClick, foundUnit}) {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('');
  
@@ -42,9 +42,7 @@ function ResultsTable({ unitNo, onButtonClickedHandler, handleSelectAllClick, ha
         </Typography>
       </Grid>
       {foundUnit && <Grid item xs={12} sx={{ mb: 2 }}>
-        <EnhancedTableToolbar
-          onButtonClicked={onButtonClickedHandler}
-        />
+        <EnhancedTableToolbar/>
         {width > 900 ? (
           <Table sx={{ minWidth: 650 }} aria-label="results table">
             <EnhancedTableHead
