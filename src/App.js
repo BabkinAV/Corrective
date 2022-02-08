@@ -14,17 +14,22 @@ import SignUp from './components/forms/SignUp';
 import Footer from './components/Footer';
 
 //actions
-import { setStatusUpdateLoading } from './redux/actions/uiActions';
-import { setAuthenticated } from './redux/actions/uiActions';
-import { setSelected } from './redux/actions/dataActions';
-
+import {
+  setStatusUpdateLoading,
+  setAuthenticated,
+  setShowSnackBar,
+} from './redux/actions/uiActions';
+import {
+  setSelected,
+  setRows,
+  updateRowsStatus,
+} from './redux/actions/dataActions';
 
 //mui stuff
 import MuiAlert from '@mui/material/Alert';
 import { Snackbar } from '@mui/material';
 
-const api_key=process.env.REACT_APP_GOOGLE_API_KEY;
-
+const api_key = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -32,20 +37,27 @@ const Alert = forwardRef(function Alert(props, ref) {
 
 // let unitNo = 'B7NZ1111'
 
-const App = ({setStatusUpdateLoading, authenticated, setAuthenticated, selected, setSelected}) => {
+const App = ({
+  setStatusUpdateLoading,
+  authenticated,
+  setAuthenticated,
+  selected,
+  setSelected,
+  setRows,
+  rows,
+  updateRowsStatus,
+  showSnackbar,
+  setShowSnackBar,
+}) => {
   const unitNoInputRef = useRef();
-  const firstLoad = useRef(true); 
+  const firstLoad = useRef(true);
 
-  const [rows, setRows] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [unitNo, setUnitNo] = useState('B7NZ2222');
   const [foundUnit, setFoundUnit] = useState(true);
   const [signInOpen, setSignInOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
   const [username, setUsername] = useState('');
-  const [showSnackbar, setShowSnackBar] = useState({show: false, severity: 'success'});
-
-
 
   const fetchInstructionsHandler = useCallback(() => {
     !firstLoad.current && setIsLoading(true);
@@ -75,7 +87,7 @@ const App = ({setStatusUpdateLoading, authenticated, setAuthenticated, selected,
       .then(() => {
         setIsLoading(false);
       });
-  }, [firstLoad]);
+  }, [firstLoad, setRows]);
 
   useEffect(() => {
     fetchInstructionsHandler();
@@ -88,8 +100,6 @@ const App = ({setStatusUpdateLoading, authenticated, setAuthenticated, selected,
       const decodedToken = jwtDecode(token);
 
       if (decodedToken.exp * 1000 > Date.now()) {
-        
-
         axios.defaults.headers.common['Authorization'] = token;
         setAuthenticated(true);
       } else {
@@ -98,26 +108,24 @@ const App = ({setStatusUpdateLoading, authenticated, setAuthenticated, selected,
     }
   }, [setAuthenticated]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (authenticated) {
       const idToken = localStorage.FBIdToken.split('bearer ')[1];
       axios
-      .post(
-        `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${api_key}`,
-        {
-          idToken,
-        }
-      )
-      .then((response) => {
-        
-        setUsername(response.data.users[0].displayName);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
+        .post(
+          `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${api_key}`,
+          {
+            idToken,
+          }
+        )
+        .then((response) => {
+          setUsername(response.data.users[0].displayName);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-  }, [authenticated])
+  }, [authenticated]);
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -149,6 +157,7 @@ const App = ({setStatusUpdateLoading, authenticated, setAuthenticated, selected,
   };
 
   const onButtonClickedHandler = (type, status) => {
+    //Pass in selected as argument
     if (type === 'SAVE') {
       if (selected.length > 0) {
         let arrayToSaveDb = selected.map((el) => ({
@@ -163,31 +172,22 @@ const App = ({setStatusUpdateLoading, authenticated, setAuthenticated, selected,
             arrayToSaveDb
           )
           .then((response) => {
-            setRows((prevState) => {
-              return prevState.map((el) => {
-                if (selected.indexOf(el.docId) !== -1) {
-                  el.status = status;
-                }
-                return el;
-              });
-            });
+            updateRowsStatus(status);
             setSelected([]);
             setStatusUpdateLoading(false);
-            setShowSnackBar({show: true, severity: 'success'});
+            setShowSnackBar({ show: true, severity: 'success' });
           })
           .catch((error) => {
             // handle error
             setStatusUpdateLoading(false);
-            setShowSnackBar({show: true, severity: 'error'});
+            setShowSnackBar({ show: true, severity: 'error' });
             setSelected([]);
             console.log(error);
           });
-        }
-        
-      } else if (type === 'CANCEL') {
-        setSelected([]);
+      }
+    } else if (type === 'CANCEL') {
+      setSelected([]);
     }
-    
   };
 
   const setAuthorizationHeader = (token) => {
@@ -214,7 +214,9 @@ const App = ({setStatusUpdateLoading, authenticated, setAuthenticated, selected,
       return;
     }
 
-    setShowSnackBar((prevState) => {return {...prevState, show: false}});
+    setShowSnackBar((prevState) => {
+      return { ...prevState, show: false };
+    });
   };
 
   return (
@@ -233,7 +235,6 @@ const App = ({setStatusUpdateLoading, authenticated, setAuthenticated, selected,
           ref={unitNoInputRef}
         />
         <ResultsTable
-          rows={rows}
           unitNo={unitNo}
           onButtonClickedHandler={onButtonClickedHandler}
           handleSelectAllClick={handleSelectAllClick}
@@ -252,33 +253,36 @@ const App = ({setStatusUpdateLoading, authenticated, setAuthenticated, selected,
         setSignUpClose={() => setSignUpOpen(false)}
         onAuthTokenObtained={AuthTokenObtainedHandler}
       />
-      <Snackbar open={showSnackbar.show} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+      <Snackbar
+        open={showSnackbar.show}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+      >
         <Alert onClose={handleCloseSnackbar} severity={showSnackbar.severity}>
-          
-         {(showSnackbar.severity==='success') && ('Save success') } 
-         {(showSnackbar.severity==='error') && ('Something went wrong') } 
-
+          {showSnackbar.severity === 'success' && 'Save success'}
+          {showSnackbar.severity === 'error' && 'Something went wrong'}
         </Alert>
       </Snackbar>
     </>
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    authenticated : state.ui.authenticated,
-    selected: state.data.selected
-  }
-}
-
+    authenticated: state.ui.authenticated,
+    showSnackbar: state.ui.showSnackbar,
+    selected: state.data.selected,
+    rows: state.data.rows,
+  };
+};
 
 const mapDispatchToProps = {
   setStatusUpdateLoading,
   setAuthenticated,
-  setSelected
-}
-
-
-
+  setSelected,
+  setRows,
+  updateRowsStatus,
+  setShowSnackBar,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

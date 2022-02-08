@@ -75,7 +75,8 @@ function EnhancedTableBody({
 const mapStateToProps = (state) => {
   return {
     authenticated: state.ui.authenticated,
-    selected : state.data.selected
+    selected : state.data.selected,
+    rows: state.data.rows
   };
 };
 
