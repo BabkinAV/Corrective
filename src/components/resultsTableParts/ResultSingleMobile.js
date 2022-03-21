@@ -1,8 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Box, Typography, Button } from '@mui/material';
 import ChipStatus from './ChipStatus';
 import Checkbox from '@mui/material/Checkbox';
 import dayjs from 'dayjs';
+
+//action
+import { handleClick } from '../../redux/actions/dataActions';
 
 function ResultSingleMobile({
   docId,
@@ -14,7 +18,7 @@ function ResultSingleMobile({
   publishedAt,
   link,
   status,
-  onCheckboxClick,
+  handleClick,
   authenticated,
 }) {
   return (
@@ -33,7 +37,7 @@ function ResultSingleMobile({
         {authenticated && (
           <Checkbox
             color="secondary"
-            onChange={(event) => onCheckboxClick(event, docId)}
+            onChange={(event) => handleClick(event, docId)}
             checked={isItemSelected}
             inputProps={{
               'aria-labelledby': docId,
@@ -116,4 +120,4 @@ function ResultSingleMobile({
   );
 }
 
-export default ResultSingleMobile;
+export default connect(null, {handleClick})(ResultSingleMobile);

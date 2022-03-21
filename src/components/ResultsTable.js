@@ -12,7 +12,7 @@ import TableHeadMobile from './resultsTableParts/TableHeadMobile';
 //Main component
 
 
-function ResultsTable({ unitNo, handleSelectAllClick, handleClick, foundUnit}) {
+function ResultsTable({ unitNo, handleSelectAllClick, foundUnit}) {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('');
  
@@ -54,7 +54,6 @@ function ResultsTable({ unitNo, handleSelectAllClick, handleClick, foundUnit}) {
             <EnhancedTableBody
               order={order}
               orderBy={orderBy}
-              onCheckboxClick={handleClick}
               />
           </Table>
         ) : (
@@ -68,7 +67,6 @@ function ResultsTable({ unitNo, handleSelectAllClick, handleClick, foundUnit}) {
             <ResultsMobile
               order={order}
               orderBy={orderBy}
-              onCheckboxClick={handleClick}
             />
           </Box>
         )}

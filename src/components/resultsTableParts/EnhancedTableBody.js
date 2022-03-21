@@ -11,13 +11,17 @@ import TableRow from '@mui/material/TableRow';
 import Link from '@mui/material/Link';
 import Checkbox from '@mui/material/Checkbox';
 
+//actions
+import { handleClick } from '../../redux/actions/dataActions';
+
+
 function EnhancedTableBody({
   rows,
   order,
   orderBy,
   selected,
-  onCheckboxClick,
   authenticated,
+  handleClick
 }) {
   const isSelected = (id) => selected.indexOf(id) !== -1;
 
@@ -40,7 +44,7 @@ function EnhancedTableBody({
                 <TableCell padding="checkbox">
                   <Checkbox
                     color="secondary"
-                    onChange={(event) => onCheckboxClick(event, row.docId)}
+                    onChange={(event) => handleClick(event, row.docId)}
                     checked={isItemSelected}
                     inputProps={{
                       'aria-labelledby': row.docId,
@@ -80,4 +84,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(EnhancedTableBody);
+export default connect(mapStateToProps, {handleClick})(EnhancedTableBody);
