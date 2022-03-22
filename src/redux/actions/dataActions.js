@@ -40,7 +40,7 @@ export const saveStatus = (selected, status, unitNo) => (dispatch) => {
       status: status,
     }));
 
-    setStatusUpdateLoading(true);
+    dispatch(setStatusUpdateLoading(true));
     axios
       .patch(
         `https://europe-west1-corrective-afe97.cloudfunctions.net/api/updateunit/${unitNo}`,

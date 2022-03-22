@@ -1,4 +1,4 @@
-import { STATUS_UPDATE_LOADING, SET_AUTHENTICATED, SET_SHOW_SNACKBAR } from "../types"
+import { STATUS_UPDATE_LOADING, SET_AUTHENTICATED, SET_SHOW_SNACKBAR, SET_IS_LOADING } from "../types"
 
 const initialState = {
   statusUpdateLoading: false,
@@ -6,7 +6,8 @@ const initialState = {
   showSnackbar: {
     show: false,
     severity: 'success'
-  }
+  },
+  isLoading: false,
   
 }
 
@@ -16,6 +17,8 @@ export const uiReducer = (state = initialState, action) => {
       return {...state, statusUpdateLoading: action.payload}
     case SET_AUTHENTICATED: 
       return {...state, authenticated: action.payload}
+    case SET_IS_LOADING: 
+      return {...state, isLoading: action.payload}
     case SET_SHOW_SNACKBAR: 
       return {...state, showSnackbar: {
         show: action.payload.show,

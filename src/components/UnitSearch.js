@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import  Grid  from '@mui/material/Grid';
 import  TextField  from '@mui/material/TextField';
 import  Typography  from '@mui/material/Typography';
@@ -62,4 +63,11 @@ const UnitSearch = React.forwardRef(
   }
 );
 
-export default UnitSearch;
+const mapStateToProps = state => {
+  return {
+    isLoading : state.ui.isLoading,
+  }
+}
+
+
+export default connect(mapStateToProps, null, null, { forwardRef: true })(UnitSearch);

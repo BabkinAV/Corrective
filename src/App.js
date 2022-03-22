@@ -17,6 +17,7 @@ import Footer from './components/Footer';
 import {
   setAuthenticated,
   setShowSnackBar,
+  setIsLoading
 } from './redux/actions/uiActions';
 import {
   setSelected,
@@ -45,12 +46,13 @@ const App = ({
   showSnackbar,
   setShowSnackBar,
   unitNo,
-  setUnitNo
+  setUnitNo,
+  setIsLoading
 }) => {
   const unitNoInputRef = useRef();
   const firstLoad = useRef(true);
 
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [foundUnit, setFoundUnit] = useState(true);
   const [signInOpen, setSignInOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
@@ -84,7 +86,7 @@ const App = ({
       .then(() => {
         setIsLoading(false);
       });
-  }, [firstLoad, setRows, setUnitNo]);
+  }, [firstLoad, setRows, setUnitNo, setIsLoading]);
 
   useEffect(() => {
     fetchInstructionsHandler();
@@ -175,7 +177,6 @@ const App = ({
         <Hero />
         <UnitSearch
           fetchInstructionsHandler={fetchInstructionsHandler}
-          isLoading={isLoading}
           ref={unitNoInputRef}
         />
         <ResultsTable
@@ -224,7 +225,8 @@ const mapDispatchToProps = {
   setSelected,
   setRows,
   setShowSnackBar,
-  setUnitNo
+  setUnitNo,
+  setIsLoading
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
