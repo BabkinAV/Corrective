@@ -22,7 +22,8 @@ import {
 import {
   setSelected,
   setRows,
-  setUnitNo
+  setUnitNo,
+  setUsername
 } from './redux/actions/dataActions';
 
 //mui stuff
@@ -47,16 +48,15 @@ const App = ({
   setShowSnackBar,
   unitNo,
   setUnitNo,
-  setIsLoading
+  setIsLoading,
+  setUsername
 }) => {
   const unitNoInputRef = useRef();
   const firstLoad = useRef(true);
 
-  // const [isLoading, setIsLoading] = useState(false);
   const [foundUnit, setFoundUnit] = useState(true);
   const [signInOpen, setSignInOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
-  const [username, setUsername] = useState('');
 
   const fetchInstructionsHandler = useCallback(() => {
     !firstLoad.current && setIsLoading(true);
@@ -124,7 +124,7 @@ const App = ({
           console.log(error);
         });
     }
-  }, [authenticated]);
+  }, [authenticated, setUsername]);
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -171,7 +171,6 @@ const App = ({
         setSignInOpen={() => setSignInOpen(true)}
         setSignUpOpen={() => setSignUpOpen(true)}
         setLogout={logoutHandler}
-        username={username}
       />
       <main>
         <Hero />
@@ -226,7 +225,8 @@ const mapDispatchToProps = {
   setRows,
   setShowSnackBar,
   setUnitNo,
-  setIsLoading
+  setIsLoading,
+  setUsername
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

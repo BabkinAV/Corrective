@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
 //MUI stuff
 import AppBar from '@mui/material/AppBar';
@@ -142,4 +143,10 @@ const Header = ({ setSignInOpen, setLogout, setSignUpOpen, username }) => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    username: state.data.username
+  };
+};
+
+export default connect(mapStateToProps)(Header);

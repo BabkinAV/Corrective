@@ -13,3 +13,5 @@ export const SET_SHOW_SNACKBAR = 'SET_SHOW_SNACKBAR';
 export const SET_UNIT_NO = 'SET_UNIT_NO';
 
 export const SET_IS_LOADING = 'SET_IS_LOADING';
+
+export const SET_USERNAME = 'SET_USERNAME';

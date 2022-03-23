@@ -2,19 +2,22 @@ import {
   SET_SELECTED,
   SET_ROWS,
   UPDATE_ROWS_STATUS,
-  SET_UNIT_NO
+  SET_UNIT_NO,
+  SET_USERNAME,
 } from '../types';
 
 const initialState = {
   selected: [],
   rows: [],
-  unitNo: ''
+  unitNo: '',
+  username: '',
 };
 
 export const dataReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_SELECTED:
       return { ...state, selected: action.payload };
+      
     case SET_ROWS: {
       return { ...state, rows: action.payload };
     }
@@ -33,8 +36,16 @@ export const dataReducer = (state = initialState, action) => {
 
     case SET_UNIT_NO: {
       return {
-        ...state, unitNo: action.payload
-      }
+        ...state,
+        unitNo: action.payload,
+      };
+    }
+
+    case SET_USERNAME: {
+      return {
+        ...state,
+        username: action.payload,
+      };
     }
 
     default:
