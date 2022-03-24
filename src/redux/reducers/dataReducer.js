@@ -4,6 +4,7 @@ import {
   UPDATE_ROWS_STATUS,
   SET_UNIT_NO,
   SET_USERNAME,
+  SET_FOUNDUNIT
 } from '../types';
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   rows: [],
   unitNo: '',
   username: '',
+  foundUnit: true,
 };
 
 export const dataReducer = (state = initialState, action) => {
@@ -46,6 +48,13 @@ export const dataReducer = (state = initialState, action) => {
         ...state,
         username: action.payload,
       };
+    }
+
+    case SET_FOUNDUNIT: {
+      return {
+        ...state,
+        foundUnit: action.payload
+      }
     }
 
     default:

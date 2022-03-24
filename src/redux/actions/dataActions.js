@@ -1,6 +1,11 @@
 import { SET_SELECTED } from '../types';
 import { SET_ROWS } from '../types';
-import { UPDATE_ROWS_STATUS, SET_UNIT_NO, SET_USERNAME } from '../types';
+import {
+  UPDATE_ROWS_STATUS,
+  SET_UNIT_NO,
+  SET_USERNAME,
+  SET_FOUNDUNIT,
+} from '../types';
 import axios from 'axios';
 
 import { setStatusUpdateLoading, setShowSnackBar } from './uiActions';
@@ -37,6 +42,13 @@ export const setUsername = (username) => {
   return {
     type: SET_USERNAME,
     payload: username,
+  };
+};
+
+export const setFoundUnit = (foundUnit) => {
+  return {
+    type: SET_FOUNDUNIT,
+    payload: foundUnit,
   };
 };
 

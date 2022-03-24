@@ -1,4 +1,5 @@
 import { React, useState} from 'react';
+import { connect } from 'react-redux';
 import EnhancedTableToolbar from './resultsTableParts/EnhancedTableToolbar';
 import useViewport from '../hooks/useViewport';
 import EnhancedTableHead from './resultsTableParts/EnhancedTableHead';
@@ -75,4 +76,11 @@ function ResultsTable({ unitNo, handleSelectAllClick, foundUnit}) {
   );
 }
 
-export default ResultsTable;
+
+const mapStateToProps = (state) => {
+  return {
+    foundUnit: state.data.foundUnit
+  };
+};
+
+export default connect(mapStateToProps)(ResultsTable);

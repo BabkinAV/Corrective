@@ -15,3 +15,5 @@ export const SET_UNIT_NO = 'SET_UNIT_NO';
 export const SET_IS_LOADING = 'SET_IS_LOADING';
 
 export const SET_USERNAME = 'SET_USERNAME';
+
+export const SET_FOUNDUNIT = 'SET_FOUNDUNIT';

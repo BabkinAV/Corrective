@@ -17,13 +17,14 @@ import Footer from './components/Footer';
 import {
   setAuthenticated,
   setShowSnackBar,
-  setIsLoading
+  setIsLoading,
 } from './redux/actions/uiActions';
 import {
   setSelected,
   setRows,
   setUnitNo,
-  setUsername
+  setUsername,
+  setFoundUnit,
 } from './redux/actions/dataActions';
 
 //mui stuff
@@ -49,12 +50,12 @@ const App = ({
   unitNo,
   setUnitNo,
   setIsLoading,
-  setUsername
+  setUsername,
+  setFoundUnit,
 }) => {
   const unitNoInputRef = useRef();
   const firstLoad = useRef(true);
 
-  const [foundUnit, setFoundUnit] = useState(true);
   const [signInOpen, setSignInOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
 
@@ -86,7 +87,7 @@ const App = ({
       .then(() => {
         setIsLoading(false);
       });
-  }, [firstLoad, setRows, setUnitNo, setIsLoading]);
+  }, [firstLoad, setRows, setUnitNo, setIsLoading, setFoundUnit]);
 
   useEffect(() => {
     fetchInstructionsHandler();
@@ -135,7 +136,6 @@ const App = ({
     setSelected([]);
   };
 
-
   const setAuthorizationHeader = (token) => {
     const FBIdToken = `bearer ${token}`;
     localStorage.setItem('FBIdToken', FBIdToken);
@@ -181,7 +181,6 @@ const App = ({
         <ResultsTable
           unitNo={unitNo}
           handleSelectAllClick={handleSelectAllClick}
-          foundUnit={foundUnit}
         />
       </main>
       <Footer />
@@ -215,7 +214,7 @@ const mapStateToProps = (state) => {
     showSnackbar: state.ui.showSnackbar,
     selected: state.data.selected,
     rows: state.data.rows,
-    unitNo: state.data.unitNo
+    unitNo: state.data.unitNo,
   };
 };
 
@@ -226,7 +225,8 @@ const mapDispatchToProps = {
   setShowSnackBar,
   setUnitNo,
   setIsLoading,
-  setUsername
+  setUsername,
+  setFoundUnit,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
