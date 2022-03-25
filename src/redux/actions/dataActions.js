@@ -8,7 +8,7 @@ import {
 } from '../types';
 import axios from 'axios';
 
-import { setStatusUpdateLoading, setShowSnackBar } from './uiActions';
+import { setStatusUpdateLoading, setShowSnackBar, setIsLoading } from './uiActions';
 
 export const setSelected = (selected) => {
   return {
@@ -102,3 +102,35 @@ export const handleClick = (event, id) => (dispatch, getState) => {
 
   dispatch(setSelected(newSelected));
 };
+
+export const fetchInstructionsHandler =
+  (firstLoad, unitNoInputRef) => (dispatch) => {
+    
+    !firstLoad && dispatch(setIsLoading(true));
+
+    let inputNoObtained = firstLoad
+      ? 'B7NZ1111'
+      : unitNoInputRef.value.toUpperCase();
+
+    dispatch(setUnitNo(inputNoObtained));
+    axios
+      .get(
+        `https://europe-west1-corrective-afe97.cloudfunctions.net/api/unit/${inputNoObtained}`
+      )
+      .then((response) => {
+        const myData = response.data;
+        if (myData.length > 0) {
+          dispatch(setRows(myData));
+          dispatch(setFoundUnit(true));
+        } else {
+          dispatch(setFoundUnit(false));
+        }
+      })
+      .catch((error) => {
+        // handle error
+        console.log(error);
+      })
+      .then(() => {
+        dispatch(setIsLoading(false));
+      });
+  };

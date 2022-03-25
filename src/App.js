@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, forwardRef } from 'react';
+import React, {  useRef, forwardRef } from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
@@ -17,14 +17,11 @@ import Footer from './components/Footer';
 import {
   setAuthenticated,
   setShowSnackBar,
-  setIsLoading,
 } from './redux/actions/uiActions';
 import {
   setSelected,
-  setRows,
-  setUnitNo,
   setUsername,
-  setFoundUnit,
+  fetchInstructionsHandler
 } from './redux/actions/dataActions';
 
 //mui stuff
@@ -43,56 +40,21 @@ const App = ({
   authenticated,
   setAuthenticated,
   setSelected,
-  setRows,
   rows,
   showSnackbar,
   setShowSnackBar,
   unitNo,
-  setUnitNo,
-  setIsLoading,
   setUsername,
-  setFoundUnit,
+  fetchInstructionsHandler
 }) => {
-  const unitNoInputRef = useRef();
-  const firstLoad = useRef(true);
+  const unitNoInputRef = useRef().current;
 
   const [signInOpen, setSignInOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
 
-  const fetchInstructionsHandler = useCallback(() => {
-    !firstLoad.current && setIsLoading(true);
-
-    let inputNoObtained = firstLoad.current
-      ? 'B7NZ1111'
-      : unitNoInputRef.current.value.toUpperCase();
-
-    setUnitNo(inputNoObtained);
-    axios
-      .get(
-        `https://europe-west1-corrective-afe97.cloudfunctions.net/api/unit/${inputNoObtained}`
-      )
-      .then((response) => {
-        const myData = response.data;
-        if (myData.length > 0) {
-          setRows(myData);
-          setFoundUnit(true);
-        } else {
-          setFoundUnit(false);
-        }
-      })
-      .catch((error) => {
-        // handle error
-        console.log(error);
-      })
-      .then(() => {
-        setIsLoading(false);
-      });
-  }, [firstLoad, setRows, setUnitNo, setIsLoading, setFoundUnit]);
-
   useEffect(() => {
-    fetchInstructionsHandler();
-    firstLoad.current = false;
-  }, [fetchInstructionsHandler]);
+    fetchInstructionsHandler(true, unitNoInputRef);
+  }, [fetchInstructionsHandler, unitNoInputRef]);
 
   useEffect(() => {
     const token = localStorage.FBIdToken;
@@ -175,7 +137,6 @@ const App = ({
       <main>
         <Hero />
         <UnitSearch
-          fetchInstructionsHandler={fetchInstructionsHandler}
           ref={unitNoInputRef}
         />
         <ResultsTable
@@ -221,12 +182,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   setAuthenticated,
   setSelected,
-  setRows,
   setShowSnackBar,
-  setUnitNo,
-  setIsLoading,
   setUsername,
-  setFoundUnit,
+  fetchInstructionsHandler
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

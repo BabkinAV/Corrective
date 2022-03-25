@@ -79,7 +79,8 @@ function ResultsTable({ unitNo, handleSelectAllClick, foundUnit}) {
 
 const mapStateToProps = (state) => {
   return {
-    foundUnit: state.data.foundUnit
+    foundUnit: state.data.foundUnit,
+    unitNo: state.data.unitNo
   };
 };
 

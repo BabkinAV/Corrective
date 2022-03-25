@@ -1,17 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import  Grid  from '@mui/material/Grid';
-import  TextField  from '@mui/material/TextField';
-import  Typography  from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import { fetchInstructionsHandler } from '../redux/actions/dataActions';
 
 import LoadingButton from '@mui/lab/LoadingButton';
-
 
 const UnitSearch = React.forwardRef(
   ({ fetchInstructionsHandler, isLoading }, ref) => {
     const onSubmitHandler = (event) => {
       event.preventDefault();
-      fetchInstructionsHandler();
+
+      const unitno = (event.target.unitno);
+      
+      fetchInstructionsHandler( false, unitno);
     };
 
     return (
@@ -36,6 +39,7 @@ const UnitSearch = React.forwardRef(
             id="unit-text-field"
             label="Serial no..."
             sx={{ height: '3.5rem', flexGrow: 1, mr: { sm: 1, lg: 2 } }}
+            name="unitno"
             variant="filled"
             color="secondary"
             inputRef={ref}
@@ -63,11 +67,16 @@ const UnitSearch = React.forwardRef(
   }
 );
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    isLoading : state.ui.isLoading,
-  }
-}
+    isLoading: state.ui.isLoading,
+  };
+};
 
+const mapDispatchToProps = {
+  fetchInstructionsHandler,
+};
 
-export default connect(mapStateToProps, null, null, { forwardRef: true })(UnitSearch);
+export default connect(mapStateToProps, mapDispatchToProps, null, {
+  forwardRef: true,
+})(UnitSearch);
