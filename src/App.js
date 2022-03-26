@@ -21,7 +21,8 @@ import {
 import {
   setSelected,
   setUsername,
-  fetchInstructionsHandler
+  fetchInstructionsHandler,
+  fetchUserName
 } from './redux/actions/dataActions';
 
 //mui stuff
@@ -45,7 +46,8 @@ const App = ({
   setShowSnackBar,
   unitNo,
   setUsername,
-  fetchInstructionsHandler
+  fetchInstructionsHandler,
+  fetchUserName
 }) => {
   const unitNoInputRef = useRef().current;
 
@@ -70,24 +72,10 @@ const App = ({
     }
   }, [setAuthenticated]);
 
+  //obtaining user name on auth state change
   useEffect(() => {
-    if (authenticated) {
-      const idToken = localStorage.FBIdToken.split('bearer ')[1];
-      axios
-        .post(
-          `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${api_key}`,
-          {
-            idToken,
-          }
-        )
-        .then((response) => {
-          setUsername(response.data.users[0].displayName);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [authenticated, setUsername]);
+    fetchUserName(authenticated, api_key)
+  }, [authenticated, fetchUserName]);
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -184,7 +172,8 @@ const mapDispatchToProps = {
   setSelected,
   setShowSnackBar,
   setUsername,
-  fetchInstructionsHandler
+  fetchInstructionsHandler,
+  fetchUserName
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

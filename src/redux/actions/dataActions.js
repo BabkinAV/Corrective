@@ -134,3 +134,22 @@ export const fetchInstructionsHandler =
         dispatch(setIsLoading(false));
       });
   };
+
+  export const fetchUserName = (authenticated, api_key) => (dispatch) => {
+    if (authenticated) {
+      const idToken = localStorage.FBIdToken.split('bearer ')[1];
+      axios
+        .post(
+          `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${api_key}`,
+          {
+            idToken,
+          }
+        )
+        .then((response) => {
+          dispatch(setUsername(response.data.users[0].displayName));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }
