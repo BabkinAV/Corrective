@@ -20,11 +20,8 @@ This app was created as a part of solo prework project for Chingu cohort.  It is
 1.  [Create React App](https://reactjs.org/docs/create-a-new-react-app.html)
 2. [Material UI](https://mui.com/)
 3. [Express](https://expressjs.com/)
-4. [Firebase](https://firebase.google.com/) \\
-
-## TO-DO:
-1. Implement React global state management via [Redux](https://redux.js.org/) or Context API
-2. Implement admin section (new instructions and products upload)
+4. [Firebase](https://firebase.google.com/) 
+5. [Redux](https://react-redux.js.org/)
 
 ## Running the project locally
 From the repo:
