@@ -7,6 +7,7 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
 import TableSortLabel from '@mui/material/TableSortLabel';
+import { handleSelectAllClick } from '../../redux/actions/dataActions';
 const headCells = [
   {
     id: 'number',
@@ -40,7 +41,7 @@ const headCells = [
 
 function EnhancedTableHead(props) {
   const {
-    onSelectAllClick,
+    handleSelectAllClick,
     order,
     orderBy,
     numSelected,
@@ -58,7 +59,7 @@ function EnhancedTableHead(props) {
           <TableCell padding="checkbox">
             <Checkbox
               color="secondary"
-              onChange={onSelectAllClick}
+              onChange={handleSelectAllClick}
               checked={rowCount > 0 && numSelected === rowCount}
               inputProps={{
                 'aria-label': 'select all documents',
@@ -95,20 +96,22 @@ function EnhancedTableHead(props) {
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     authenticated: state.ui.authenticated,
-    numSelected : state.data.selected.length,
-    rowCount: state.data.rows.length
-  }
-}
+    numSelected: state.data.selected.length,
+    rowCount: state.data.rows.length,
+  };
+};
 
-export default connect(mapStateToProps)(EnhancedTableHead);
+export default connect(mapStateToProps, { handleSelectAllClick })(
+  EnhancedTableHead
+);
 
 EnhancedTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
+  handleSelectAllClick: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,

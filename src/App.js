@@ -1,4 +1,4 @@
-import React, {  useRef, forwardRef } from 'react';
+import React, { useRef, forwardRef } from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
@@ -14,15 +14,12 @@ import SignUp from './components/forms/SignUp';
 import Footer from './components/Footer';
 
 //actions
-import {
-  setAuthenticated,
-  setShowSnackBar,
-} from './redux/actions/uiActions';
+import { setAuthenticated, setShowSnackBar } from './redux/actions/uiActions';
 import {
   setSelected,
   setUsername,
   fetchInstructionsHandler,
-  fetchUserName
+  fetchUserName,
 } from './redux/actions/dataActions';
 
 //mui stuff
@@ -35,8 +32,6 @@ const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-// let unitNo = 'B7NZ1111'
-
 const App = ({
   authenticated,
   setAuthenticated,
@@ -44,16 +39,16 @@ const App = ({
   rows,
   showSnackbar,
   setShowSnackBar,
-  unitNo,
   setUsername,
   fetchInstructionsHandler,
-  fetchUserName
+  fetchUserName,
 }) => {
   const unitNoInputRef = useRef().current;
 
   const [signInOpen, setSignInOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(false);
 
+  //fetch instructions for default unit on first load
   useEffect(() => {
     fetchInstructionsHandler(true, unitNoInputRef);
   }, [fetchInstructionsHandler, unitNoInputRef]);
@@ -74,17 +69,9 @@ const App = ({
 
   //obtaining user name on auth state change
   useEffect(() => {
-    fetchUserName(authenticated, api_key)
+    fetchUserName(authenticated, api_key);
   }, [authenticated, fetchUserName]);
 
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.docId);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
 
   const setAuthorizationHeader = (token) => {
     const FBIdToken = `bearer ${token}`;
@@ -124,13 +111,8 @@ const App = ({
       />
       <main>
         <Hero />
-        <UnitSearch
-          ref={unitNoInputRef}
-        />
-        <ResultsTable
-          unitNo={unitNo}
-          handleSelectAllClick={handleSelectAllClick}
-        />
+        <UnitSearch ref={unitNoInputRef} />
+        <ResultsTable />
       </main>
       <Footer />
       <SignIn
@@ -163,7 +145,6 @@ const mapStateToProps = (state) => {
     showSnackbar: state.ui.showSnackbar,
     selected: state.data.selected,
     rows: state.data.rows,
-    unitNo: state.data.unitNo,
   };
 };
 
@@ -173,7 +154,7 @@ const mapDispatchToProps = {
   setShowSnackBar,
   setUsername,
   fetchInstructionsHandler,
-  fetchUserName
+  fetchUserName,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -13,7 +13,7 @@ import TableHeadMobile from './resultsTableParts/TableHeadMobile';
 //Main component
 
 
-function ResultsTable({ unitNo, handleSelectAllClick, foundUnit}) {
+function ResultsTable({ unitNo, foundUnit}) {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('');
  
@@ -49,7 +49,6 @@ function ResultsTable({ unitNo, handleSelectAllClick, foundUnit}) {
             <EnhancedTableHead
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               />
             <EnhancedTableBody
@@ -62,7 +61,6 @@ function ResultsTable({ unitNo, handleSelectAllClick, foundUnit}) {
             <TableHeadMobile
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               />
             <ResultsMobile

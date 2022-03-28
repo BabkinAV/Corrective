@@ -10,9 +10,12 @@ import App from './App';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppTheme from './AppTheme';
 import { rootReducer } from './redux/rootReducer';
-// import { uiReducer } from './redux/uiReducer';
 
-const store = createStore(rootReducer, compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
   <React.StrictMode>

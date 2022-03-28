@@ -17,6 +17,17 @@ export const setSelected = (selected) => {
   };
 };
 
+export const handleSelectAllClick = (event) => (dispatch, getState) => {
+  const { data } = getState();
+  const rows = data.rows;
+  if (event.target.checked) {
+    const newSelecteds = rows.map((n) => n.docId);
+    dispatch(setSelected(newSelecteds));
+    return;
+  }
+  dispatch(setSelected([]));
+}
+
 export const setRows = (rows) => {
   return {
     type: SET_ROWS,
@@ -108,6 +119,7 @@ export const fetchInstructionsHandler =
     
     !firstLoad && dispatch(setIsLoading(true));
 
+    // let unitNo = 'B7NZ1111'
     let inputNoObtained = firstLoad
       ? 'B7NZ1111'
       : unitNoInputRef.value.toUpperCase();

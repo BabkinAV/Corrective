@@ -6,6 +6,8 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 
 import Checkbox from '@mui/material/Checkbox';
 
+import { handleSelectAllClick } from '../../redux/actions/dataActions';
+
 const headCells = [
   {
     id: 'number',
@@ -35,7 +37,7 @@ const headCells = [
 
 function TableHeadMobile(props) {
   const {
-    onSelectAllClick,
+    handleSelectAllClick,
     order,
     orderBy,
     numSelected,
@@ -89,7 +91,7 @@ function TableHeadMobile(props) {
           control={
             <Checkbox
               color="secondary"
-              onChange={onSelectAllClick}
+              onChange={handleSelectAllClick}
               checked={rowCount > 0 && numSelected === rowCount}
             />
           }
@@ -109,4 +111,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps)(TableHeadMobile);
+export default connect(mapStateToProps, {handleSelectAllClick})(TableHeadMobile);
