@@ -11,6 +11,9 @@ This app was created as a part of solo prework project for Chingu cohort.  It is
 
  - Authorization and registration via Firebase REST API
  - Search on the Firestore database via unit serial number. Exact matches only (case-insensitive). 
+
+   **Backend code**: [https://github.com/BabkinAV/Corrective-be](https://github.com/BabkinAV/Corrective-be)
+
  - Download files from Firestore database
  - Sorting of search items results
  - Authorized users can also change status of search items via responsive table toolbar
@@ -19,9 +22,8 @@ This app was created as a part of solo prework project for Chingu cohort.  It is
 ## Tech used / dependencies
 1.  [Create React App](https://reactjs.org/docs/create-a-new-react-app.html)
 2. [Material UI](https://mui.com/)
-3. [Express](https://expressjs.com/)
-4. [Firebase](https://firebase.google.com/) 
-5. [Redux](https://react-redux.js.org/)
+3. [Firebase](https://firebase.google.com/) 
+4. [Redux](https://react-redux.js.org/)
 
 ## Running the project locally
 From the repo:
