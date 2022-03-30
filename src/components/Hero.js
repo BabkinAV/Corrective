@@ -38,7 +38,7 @@ function Hero() {
           no suscipit quaerendum. At nam minimum ponderum. Est audiam animal
           molestiae te.
         </Typography>
-        <Button variant='outlined' color ='secondary'>Learn more</Button>
+        <Button variant='outlined' color ='secondary' style={{ border: '2px solid' }}>Learn more</Button>
         
       </Box>
     </Box>
