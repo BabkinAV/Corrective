@@ -12,6 +12,7 @@ import ResultsTable from './components/ResultsTable';
 import SignIn from './components/forms/SignIn';
 import SignUp from './components/forms/SignUp';
 import Footer from './components/Footer';
+import LearnMoreModal from './components/modals/LearnMoreModal';
 
 //actions
 import { setAuthenticated, setShowSnackBar } from './redux/actions/uiActions';
@@ -125,6 +126,7 @@ const App = ({
         setSignUpClose={() => setSignUpOpen(false)}
         onAuthTokenObtained={AuthTokenObtainedHandler}
       />
+      <LearnMoreModal/>
       <Snackbar
         open={showSnackbar.show}
         autoHideDuration={6000}

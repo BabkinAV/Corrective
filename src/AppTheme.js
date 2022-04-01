@@ -12,6 +12,7 @@ let theme = createTheme({
     },
     secondary: {
       main: '#3C64B1',
+      lighter: '#64b5f6'
     },
     background: {
       main: 'rgba(60, 100, 177, 0.1)',

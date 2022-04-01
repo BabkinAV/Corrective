@@ -98,7 +98,7 @@ const Header = ({ setSignInOpen, setLogout, setSignUpOpen, username }) => {
               Contact
             </Button>
           </Box>
-          <Box>
+          <Box sx={{minWidth: '15rem', display: 'flex'}}>
             {authenticated ? (
               <>
                 <Typography sx={{ display: 'inline-block', pr: 5 }}>
@@ -122,7 +122,7 @@ const Header = ({ setSignInOpen, setLogout, setSignUpOpen, username }) => {
                   disableElevation={true}
                   onMouseOver={() => setHighlightedItem('Signup')}
                   onMouseLeave={() => setHighlightedItem('Login')}
-                  sx={{ mr: 2 }}
+                  sx={{ mr: 2, ml: 'auto' }}
                 >
                   Signup
                 </Button>
