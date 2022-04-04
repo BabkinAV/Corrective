@@ -1,10 +1,11 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { Grid } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import banner from '../../assets/img/LearnMoreModal.png';
+
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const modalStyle = {
   position: 'absolute',
@@ -16,13 +17,8 @@ const modalStyle = {
   // width: 400,
   bgcolor: 'background.paper',
   boxShadow: 24,
-  p: 4,
+  p: '80px 165px',
 };
-
-const imgStyle = {
-  backgroundSize: 'cover',
-  backgroundColor: 'grey',
-}
 
 const LearnMoreModal = () => {
   const [open, setOpen] = React.useState(false);
@@ -37,17 +33,56 @@ const LearnMoreModal = () => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={modalStyle}>
-        <Grid container>
+        <Grid container columnSpacing={6}>
           <Grid item xs={6}>
-            <img src={banner} alt="" sx={{w: '100%', h: '100%'}}/>
+            <Box
+              component="img"
+              sx={{
+                height: '100%',
+                width: '100%',
+              }}
+              alt="Banner image"
+              src={banner}
+            />
           </Grid>
-          <Grid item xs={6}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Some stuff will be here soon...
+          <Grid item xs={6} sx={{ pt: '60px' }}>
+            <Typography variant="h3">
+              Discover endless possibilities with our Signature Service
             </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            <Typography
+              variant="body1"
+              sx={{ my: 4, textAlign: 'justify', color: 'primary.light' }}
+            >
+              Et has minim elitr intellegat. Mea aeterno eleifend antiopam ad,
+              nam no suscipit quaerendum. At nam minimum ponderum. Est audiam
+              animal molestiae te. Ex duo eripuit mentitum.
             </Typography>
+            <Box component="form">
+              <TextField
+                id="email-text-field"
+                label="Enter your email"
+                sx={{ height: '3.5rem', flexGrow: 1, mr: { sm: 1, lg: 2 } }}
+                name="email"
+                variant="filled"
+                color="secondary"
+                // inputRef={ref}
+              ></TextField>
+              <LoadingButton
+                variant="contained"
+                // loading={isLoading}
+                type="submit"
+                color="secondary"
+                sx={{ height: '3.5rem', width: '10rem' }}
+                disableElevation={true}
+              >
+                Contact us*
+              </LoadingButton>
+            </Box>
+            <Typography variant="body2" color="primary.light">
+            *By clicking “Contact us” you are accepting ipsum dolor sit
+            amet, sit ea brute mediocritatem, eu sed aliquam scripserit
+            dissentiunt.
+          </Typography>
           </Grid>
         </Grid>
       </Box>
