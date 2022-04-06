@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Grid, TextField } from '@mui/material';
-import banner from '../../assets/img/LearnMoreModal.png';
+import banner from '../../assets/img/LearnMoreModal.jpg';
 
 import LoadingButton from '@mui/lab/LoadingButton';
 
@@ -17,7 +17,7 @@ const modalStyle = {
   // width: 400,
   bgcolor: 'background.paper',
   boxShadow: 24,
-  p: '80px 165px',
+  p: '80px',
 };
 
 const LearnMoreModal = () => {
@@ -38,14 +38,13 @@ const LearnMoreModal = () => {
             <Box
               component="img"
               sx={{
-                height: '100%',
                 width: '100%',
               }}
               alt="Banner image"
               src={banner}
             />
           </Grid>
-          <Grid item xs={6} sx={{ pt: '60px' }}>
+          <Grid item xs={6} sx={{ pt: '10px' }}>
             <Typography variant="h3">
               Discover endless possibilities with our Signature Service
             </Typography>
@@ -57,7 +56,7 @@ const LearnMoreModal = () => {
               nam no suscipit quaerendum. At nam minimum ponderum. Est audiam
               animal molestiae te. Ex duo eripuit mentitum.
             </Typography>
-            <Box component="form">
+            <Box component="form" sx={{ display: 'flex' }}>
               <TextField
                 id="email-text-field"
                 label="Enter your email"
@@ -79,10 +78,9 @@ const LearnMoreModal = () => {
               </LoadingButton>
             </Box>
             <Typography variant="body2" color="primary.light">
-            *By clicking “Contact us” you are accepting ipsum dolor sit
-            amet, sit ea brute mediocritatem, eu sed aliquam scripserit
-            dissentiunt.
-          </Typography>
+              *By clicking “Contact us” you are accepting ipsum dolor sit amet,
+              sit ea brute mediocritatem, eu sed aliquam scripserit dissentiunt.
+            </Typography>
           </Grid>
         </Grid>
       </Box>
