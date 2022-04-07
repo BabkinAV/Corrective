@@ -17,7 +17,10 @@ const modalStyle = {
   // width: 400,
   bgcolor: 'background.paper',
   boxShadow: 24,
-  p: '80px',
+  p: {
+    xs: '10px',
+    lg: '80px'
+  },
 };
 
 const LearnMoreModal = () => {
@@ -33,8 +36,8 @@ const LearnMoreModal = () => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={modalStyle}>
-        <Grid container columnSpacing={6}>
-          <Grid item xs={6}>
+        <Grid container columnSpacing={6} alignItems="center" sx={{ flexDirection: { xs: "column", md: "row"} }}>
+          <Grid item xs={12} sm={10} md={6}>
             <Box
               component="img"
               sx={{
@@ -44,7 +47,7 @@ const LearnMoreModal = () => {
               src={banner}
             />
           </Grid>
-          <Grid item xs={6} sx={{ pt: '10px' }}>
+          <Grid item xs={12} md={6}sx={{ pt: '10px' }}>
             <Typography variant="h3">
               Discover endless possibilities with our Signature Service
             </Typography>
