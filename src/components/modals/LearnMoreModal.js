@@ -9,17 +9,16 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 const modalStyle = {
   position: 'absolute',
-  top: '10%',
+  top: { xs: '5%', md: '10%' },
   left: '10%',
   right: '10%',
   minHeight: 400,
-  // transform: 'translate(-50%, -50%)',
-  // width: 400,
+  outline: 0,
   bgcolor: 'background.paper',
   boxShadow: 24,
   p: {
     xs: '10px',
-    lg: '80px'
+    lg: '80px',
   },
 };
 
@@ -36,7 +35,12 @@ const LearnMoreModal = () => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={modalStyle}>
-        <Grid container columnSpacing={6} alignItems="center" sx={{ flexDirection: { xs: "column", md: "row"} }}>
+        <Grid
+          container
+          columnSpacing={{xs: 0, md: 6}}
+          alignItems="center"
+          sx={{ flexDirection: { xs: 'column', md: 'row' } }}
+        >
           <Grid item xs={12} sm={10} md={6}>
             <Box
               component="img"
@@ -47,13 +51,21 @@ const LearnMoreModal = () => {
               src={banner}
             />
           </Grid>
-          <Grid item xs={12} md={6}sx={{ pt: '10px' }}>
-            <Typography variant="h3">
+          <Grid item xs={12} md={6} sx={{ pt: '10px' }}>
+            <Typography
+              variant="h3"
+              sx={{ fontSize: { xs: '1.5rem', md: '1.75rem', lg: '2rem' } }}
+            >
               Discover endless possibilities with our Signature Service
             </Typography>
             <Typography
               variant="body1"
-              sx={{ my: 4, textAlign: 'justify', color: 'primary.light' }}
+              sx={{
+                my: { xs: 1, md: 4 },
+                textAlign: 'justify',
+                color: 'primary.light',
+                fontSize: { xs: '0.875rem', md: '1rem' },
+              }}
             >
               Et has minim elitr intellegat. Mea aeterno eleifend antiopam ad,
               nam no suscipit quaerendum. At nam minimum ponderum. Est audiam
@@ -80,7 +92,7 @@ const LearnMoreModal = () => {
                 Contact us*
               </LoadingButton>
             </Box>
-            <Typography variant="body2" color="primary.light">
+            <Typography variant="body2" color="primary.light" sx={{fontSize: { xs: '0.6rem', md: '0.875rem' }, lineHeight: 'unset'}}>
               *By clicking “Contact us” you are accepting ipsum dolor sit amet,
               sit ea brute mediocritatem, eu sed aliquam scripserit dissentiunt.
             </Typography>
