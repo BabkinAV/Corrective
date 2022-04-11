@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
+
 //redux stuff
 import { connect } from 'react-redux';
 import { setModalOpen } from '../redux/actions/uiActions';
