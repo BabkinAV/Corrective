@@ -1,9 +1,13 @@
 import { Button, Typography } from '@mui/material';
+//Redux stuff
+import { connect } from 'react-redux';
+import { setModalOpen } from '../redux/actions/uiActions';
+//Mui stuff
 import { Box } from '@mui/system';
 import React from 'react';
 import HeroImg from '../assets/img/hero.jpg';
 
-function Hero() {
+function Hero({setModalOpen}) {
   return (
     <Box
       sx={{
@@ -46,6 +50,7 @@ function Hero() {
               border: '2px solid',
             },
           }}
+          onClick={() => setModalOpen(true)}
         >
           Learn more
         </Button>
@@ -54,4 +59,4 @@ function Hero() {
   );
 }
 
-export default Hero;
+export default connect(null, {setModalOpen})(Hero);

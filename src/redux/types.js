@@ -17,3 +17,5 @@ export const SET_IS_LOADING = 'SET_IS_LOADING';
 export const SET_USERNAME = 'SET_USERNAME';
 
 export const SET_FOUNDUNIT = 'SET_FOUNDUNIT';
+
+export const SET_MODAL_OPEN = 'SET_MODAL_OPEN';

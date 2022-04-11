@@ -2,6 +2,7 @@ import { STATUS_UPDATE_LOADING } from '../types';
 import { SET_IS_LOADING } from '../types';
 import { SET_AUTHENTICATED } from '../types';
 import { SET_SHOW_SNACKBAR } from '../types';
+import { SET_MODAL_OPEN } from '../types';
 
 export const setStatusUpdateLoading = (isStatusUpdateLoading) => {
   return {
@@ -33,3 +34,10 @@ export const setShowSnackBar = ({ show, severity }) => {
     },
   };
 };
+
+export const setModalOpen = (isModalOpen) => {
+  return {
+    type: SET_MODAL_OPEN,
+    payload: isModalOpen,
+  }
+}

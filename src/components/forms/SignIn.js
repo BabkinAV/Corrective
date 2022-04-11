@@ -14,7 +14,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import { TextField, Typography } from '@mui/material';
 import { Grid, Box } from '@mui/material';
 
-
 //form validation
 import {
   UPDATE_FORM,
@@ -24,7 +23,7 @@ import {
   validateInput,
 } from '../../helpers/formUtils';
 
-const api_key=process.env.REACT_APP_GOOGLE_API_KEY;
+const api_key = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -41,20 +40,19 @@ const BootstrapDialogTitle = (props) => {
   return (
     <DialogTitle sx={{ m: 0, px: 2, py: { xs: 0.5, md: 2 } }} {...other}>
       {children}
-      {onClose ? (
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      ) : null}
+
+      <IconButton
+        aria-label="close"
+        onClick={onClose}
+        sx={{
+          position: 'absolute',
+          right: 8,
+          top: 8,
+          color: (theme) => theme.palette.grey[500],
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
     </DialogTitle>
   );
 };
@@ -172,7 +170,6 @@ const SignIn = ({ signInOpen, setSignInClose, onAuthTokenObtained }) => {
             setBackendError('Something went wrong');
           }
 
-          
           setTimeout(() => {
             setBackendError('');
           }, 5000);
@@ -186,11 +183,9 @@ const SignIn = ({ signInOpen, setSignInClose, onAuthTokenObtained }) => {
     setSignInClose();
   };
 
-useEffect(() => {
+  useEffect(() => {
     dispatch({ type: 'RESET_FORM' });
-  
   }, [setSignInClose]);
-  
 
   return (
     <>

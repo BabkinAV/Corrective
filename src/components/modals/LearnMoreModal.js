@@ -1,11 +1,19 @@
 import React from 'react';
+
+//Redux stuff
+import { connect } from 'react-redux';
+import { setModalOpen } from '../../redux/actions/uiActions';
+
+//Mui stuff
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { Grid, TextField } from '@mui/material';
-import banner from '../../assets/img/LearnMoreModal.jpg';
-
+import { Grid, TextField, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import LoadingButton from '@mui/lab/LoadingButton';
+
+//extra dependencies
+import banner from '../../assets/img/LearnMoreModal.jpg';
 
 const modalStyle = {
   position: 'absolute',
@@ -22,22 +30,31 @@ const modalStyle = {
   },
 };
 
-const LearnMoreModal = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+const LearnMoreModal = ({isModalOpen, setModalOpen}) => {
 
   return (
     <Modal
-      open={true}
-      onClose={handleClose}
+      open={isModalOpen}
+      onClose={() =>setModalOpen(false)}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <Box sx={modalStyle}>
+        <IconButton
+          aria-label="close"
+          onClick={() =>setModalOpen(false)}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => ({ xs: '#fff', sm: theme.palette.grey[500] }),
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
         <Grid
           container
-          columnSpacing={{xs: 0, md: 6}}
+          columnSpacing={{ xs: 0, md: 6 }}
           alignItems="center"
           sx={{ flexDirection: { xs: 'column', md: 'row' } }}
         >
@@ -92,7 +109,14 @@ const LearnMoreModal = () => {
                 Contact us*
               </LoadingButton>
             </Box>
-            <Typography variant="body2" color="primary.light" sx={{fontSize: { xs: '0.6rem', md: '0.875rem' }, lineHeight: 'unset'}}>
+            <Typography
+              variant="body2"
+              color="primary.light"
+              sx={{
+                fontSize: { xs: '0.6rem', md: '0.875rem' },
+                lineHeight: 'unset',
+              }}
+            >
               *By clicking “Contact us” you are accepting ipsum dolor sit amet,
               sit ea brute mediocritatem, eu sed aliquam scripserit dissentiunt.
             </Typography>
@@ -103,4 +127,10 @@ const LearnMoreModal = () => {
   );
 };
 
-export default LearnMoreModal;
+const mapStateToProps = (state) => {
+  return {
+    isModalOpen: state.ui.isModalOpen,
+  }
+}
+
+export default connect(mapStateToProps, {setModalOpen})(LearnMoreModal);
