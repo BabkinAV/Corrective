@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-
 //redux stuff
 import { connect } from 'react-redux';
 import { setModalOpen } from '../redux/actions/uiActions';
@@ -19,7 +18,13 @@ import { useTheme } from '@emotion/react';
 import useViewport from '../hooks/useViewport';
 import { useSelector } from 'react-redux';
 
-const Header = ({ setSignInOpen, setLogout, setSignUpOpen, username, setModalOpen }) => {
+const Header = ({
+  setSignInOpen,
+  setLogout,
+  setSignUpOpen,
+  username,
+  setModalOpen,
+}) => {
   const [higlightedItem, setHighlightedItem] = useState('Login');
   const { width } = useViewport();
   const [collapsed, setCollapsed] = useState(width > 900 ? true : false);
@@ -91,18 +96,32 @@ const Header = ({ setSignInOpen, setLogout, setSignUpOpen, username, setModalOpe
           >
             Corrective
           </Typography>
-          <Box>
+          <Box
+            sx={{
+              '@media (min-width: 900px)': {
+                position: 'absolute',
+                left: '50%',
+                transform: 'translate(-50%)',
+              },
+            }}
+          >
             <Button variant="text" sx={{ mx: 2 }} color="primary" disableRipple>
               Home
             </Button>
             <Button variant="text" sx={{ mx: 2 }} color="primary" disableRipple>
               About
             </Button>
-            <Button variant="text" sx={{ mx: 2 }} color="primary" disableRipple onClick={() => setModalOpen(true)}>
+            <Button
+              variant="text"
+              sx={{ mx: 2 }}
+              color="primary"
+              disableRipple
+              onClick={() => setModalOpen(true)}
+            >
               Contact
             </Button>
           </Box>
-          <Box sx={{minWidth: '15rem', display: 'flex'}}>
+          <Box sx={{ display: 'flex' }}>
             {authenticated ? (
               <>
                 <Typography sx={{ display: 'inline-block', pr: 5 }}>
@@ -149,8 +168,8 @@ const Header = ({ setSignInOpen, setLogout, setSignUpOpen, username, setModalOpe
 
 const mapStateToProps = (state) => {
   return {
-    username: state.data.username
+    username: state.data.username,
   };
 };
 
-export default connect(mapStateToProps, {setModalOpen})(Header);
+export default connect(mapStateToProps, { setModalOpen })(Header);
