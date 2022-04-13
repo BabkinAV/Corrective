@@ -13,6 +13,7 @@ import SignIn from './components/forms/SignIn';
 import SignUp from './components/forms/SignUp';
 import Footer from './components/Footer';
 import LearnMoreModal from './components/modals/LearnMoreModal';
+import AboutModal from './components/modals/AboutModal';
 
 //actions
 import { setAuthenticated, setShowSnackBar } from './redux/actions/uiActions';
@@ -37,7 +38,6 @@ const App = ({
   authenticated,
   setAuthenticated,
   setSelected,
-  rows,
   showSnackbar,
   setShowSnackBar,
   setUsername,
@@ -72,7 +72,6 @@ const App = ({
   useEffect(() => {
     fetchUserName(authenticated, api_key);
   }, [authenticated, fetchUserName]);
-
 
   const setAuthorizationHeader = (token) => {
     const FBIdToken = `bearer ${token}`;
@@ -126,7 +125,8 @@ const App = ({
         setSignUpClose={() => setSignUpOpen(false)}
         onAuthTokenObtained={AuthTokenObtainedHandler}
       />
-      <LearnMoreModal/>
+      <LearnMoreModal />
+      <AboutModal />
       <Snackbar
         open={showSnackbar.show}
         autoHideDuration={6000}

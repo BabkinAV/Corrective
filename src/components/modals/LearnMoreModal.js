@@ -36,8 +36,8 @@ const LearnMoreModal = ({isModalOpen, setModalOpen}) => {
     <Modal
       open={isModalOpen}
       onClose={() =>setModalOpen(false)}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      aria-labelledby="contact-us"
+      aria-describedby="learn-more-on-service"
     >
       <Box sx={modalStyle}>
         <IconButton
