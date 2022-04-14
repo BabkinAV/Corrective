@@ -3,6 +3,7 @@ import { SET_IS_LOADING } from '../types';
 import { SET_AUTHENTICATED } from '../types';
 import { SET_SHOW_SNACKBAR } from '../types';
 import { SET_MODAL_OPEN } from '../types';
+import { SET_ABOUT_OPEN } from '../types';
 
 export const setStatusUpdateLoading = (isStatusUpdateLoading) => {
   return {
@@ -39,5 +40,11 @@ export const setModalOpen = (isModalOpen) => {
   return {
     type: SET_MODAL_OPEN,
     payload: isModalOpen,
+  }
+}
+export const setAboutOpen = (isAboutOpen) => {
+  return {
+    type: SET_ABOUT_OPEN,
+    payload: isAboutOpen,
   }
 }

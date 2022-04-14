@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 //redux stuff
 import { connect } from 'react-redux';
-import { setModalOpen } from '../redux/actions/uiActions';
+import { setModalOpen, setAboutOpen } from '../redux/actions/uiActions';
 
 //MUI stuff
 import AppBar from '@mui/material/AppBar';
@@ -24,6 +24,7 @@ const Header = ({
   setSignUpOpen,
   username,
   setModalOpen,
+  setAboutOpen,
 }) => {
   const [higlightedItem, setHighlightedItem] = useState('Login');
   const { width } = useViewport();
@@ -108,7 +109,13 @@ const Header = ({
             <Button variant="text" sx={{ mx: 2 }} color="primary" disableRipple>
               Home
             </Button>
-            <Button variant="text" sx={{ mx: 2 }} color="primary" disableRipple>
+            <Button
+              variant="text"
+              sx={{ mx: 2 }}
+              color="primary"
+              disableRipple
+              onClick={() => setAboutOpen(true)}
+            >
               About
             </Button>
             <Button
@@ -172,4 +179,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setModalOpen })(Header);
+export default connect(mapStateToProps, { setModalOpen, setAboutOpen })(Header);

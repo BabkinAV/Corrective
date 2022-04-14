@@ -19,3 +19,5 @@ export const SET_USERNAME = 'SET_USERNAME';
 export const SET_FOUNDUNIT = 'SET_FOUNDUNIT';
 
 export const SET_MODAL_OPEN = 'SET_MODAL_OPEN';
+
+export const SET_ABOUT_OPEN = 'SET_ABOUT_US_OPEN';

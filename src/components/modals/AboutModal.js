@@ -1,5 +1,9 @@
 import React from 'react';
 
+//Redux stuff
+import { connect } from 'react-redux';
+import { setAboutOpen } from '../../redux/actions/uiActions';
+
 //MUI stuff
 import { Modal, Box, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -22,18 +26,18 @@ const modalStyle = {
   },
 };
 
-const AboutModal = () => {
+const AboutModal = ({isAboutOpen, setAboutOpen}) => {
   return (
     <Modal
-      open={true}
-      // onClose={() =>setModalOpen(false)}
+      open={isAboutOpen}
+      onClose={() =>setAboutOpen(false)}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <Box sx={modalStyle}>
         <IconButton
           aria-label="close"
-          // onClick={() =>setModalOpen(false)}
+          onClick={() =>setAboutOpen(false)}
           sx={{
             position: 'fixed',
             right:  { xs: '12%', md: '32%' },
@@ -248,4 +252,10 @@ const AboutModal = () => {
   );
 };
 
-export default AboutModal;
+const mapStateToProps = (state) => {
+  return {
+    isAboutOpen: state.ui.isAboutOpen,
+  }
+}
+
+export default connect(mapStateToProps, {setAboutOpen})(AboutModal);
