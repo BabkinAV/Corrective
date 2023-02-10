@@ -127,12 +127,12 @@ export const fetchInstructionsHandler =
     dispatch(setUnitNo(inputNoObtained));
     axios
       .get(
-        `https://europe-west1-corrective-afe97.cloudfunctions.net/api/unit/${inputNoObtained}`
+        `${process.env.REACT_APP_BASE_URL}/unit/${inputNoObtained}`
       )
       .then((response) => {
         const myData = response.data;
-        if (myData.length > 0) {
-          dispatch(setRows(myData));
+        if (myData.unit.instructions.length > 0) {
+          dispatch(setRows(myData.unit.instructions));
           dispatch(setFoundUnit(true));
         } else {
           dispatch(setFoundUnit(false));
