@@ -55,23 +55,24 @@ const App = ({
   }, [fetchInstructionsHandler, unitNoInputRef]);
 
   useEffect(() => {
-    const token = localStorage.FBIdToken;
-    if (token) {
-      const decodedToken = jwtDecode(token);
+    // const token = localStorage.FBIdToken;
+    // if (token) {
+    //   const decodedToken = jwtDecode(token);
 
-      if (decodedToken.exp * 1000 > Date.now()) {
-        axios.defaults.headers.common['Authorization'] = token;
-        setAuthenticated(true);
-      } else {
-        setAuthenticated(false);
-      }
-    }
+    //   if (decodedToken.exp * 1000 > Date.now()) {
+    //     axios.defaults.headers.common['Authorization'] = token;
+    //     setAuthenticated(true);
+    //   } else {
+    //     setAuthenticated(false);
+    //   }
+    // }
+		setAuthenticated(true);
   }, [setAuthenticated]);
 
   //obtaining user name on auth state change
-  useEffect(() => {
-    fetchUserName(authenticated, api_key);
-  }, [authenticated, fetchUserName]);
+  // useEffect(() => {
+  //   fetchUserName(authenticated, api_key);
+  // }, [authenticated, fetchUserName]);
 
   const setAuthorizationHeader = (token) => {
     const FBIdToken = `bearer ${token}`;

@@ -72,8 +72,8 @@ export const saveStatus = (selected, status, unitNo) => (dispatch) => {
 
     dispatch(setStatusUpdateLoading(true));
     axios
-      .patch(
-        `https://europe-west1-corrective-afe97.cloudfunctions.net/api/updateunit/${unitNo}`,
+      .put(
+        `${process.env.REACT_APP_BASE_URL}/unit/updatestatus/${unitNo}`,
         arrayToSaveDb
       )
       .then((response) => {
