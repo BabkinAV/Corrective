@@ -81,8 +81,10 @@ const App = ({
   };
 
   const AuthTokenObtainedHandler = (idToken) => {
+		const decodedToken = jwtDecode(idToken);
     setAuthorizationHeader(idToken);
     setAuthenticated(true);
+		setUsername(decodedToken.name)
   };
 
   const logoutHandler = () => {

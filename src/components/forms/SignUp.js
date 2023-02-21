@@ -148,29 +148,16 @@ const SignUp = ({ signUpOpen, setSignUpClose, onAuthTokenObtained }) => {
       let token;
       axios
         .post(
-          `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${api_key}`,
+          `${process.env.REACT_APP_BASE_URL}/auth/signup`,
           {
             email: email.value,
             password: password.value,
-            returnSecureToken: true,
+            name: name.value
           }
         )
-        .then((response) => {
-          setSignUpLoading(false);
-          token = response.data.idToken
-          
-          let userName = name.value;
-         
-          return axios.post(
-            `https://identitytoolkit.googleapis.com/v1/accounts:update?key=${api_key}`,
-            {
-              idToken: response.data.idToken,
-              displayName: userName,
-              returnSecureToken: false,
-            }
-          );
-        })
         .then ((response) => {
+					setSignUpLoading(false);
+          token = response.data.token
           onAuthTokenObtained(token);
           dispatch({ type: 'RESET_FORM' });
           setShowError(false);
