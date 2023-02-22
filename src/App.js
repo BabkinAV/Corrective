@@ -21,28 +21,24 @@ import {
   setSelected,
   setUsername,
   fetchInstructionsHandler,
-  fetchUserName,
 } from './redux/actions/dataActions';
 
 //mui stuff
 import MuiAlert from '@mui/material/Alert';
 import { Snackbar } from '@mui/material';
 
-const api_key = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 const App = ({
-  authenticated,
   setAuthenticated,
   setSelected,
   showSnackbar,
   setShowSnackBar,
   setUsername,
   fetchInstructionsHandler,
-  fetchUserName,
 }) => {
   const unitNoInputRef = useRef().current;
 
@@ -55,24 +51,19 @@ const App = ({
   }, [fetchInstructionsHandler, unitNoInputRef]);
 
   useEffect(() => {
-    // const token = localStorage.FBIdToken;
-    // if (token) {
-    //   const decodedToken = jwtDecode(token);
+    const token = localStorage.FBIdToken;
+    if (token) {
+      const decodedToken = jwtDecode(token);
 
-    //   if (decodedToken.exp * 1000 > Date.now()) {
-    //     axios.defaults.headers.common['Authorization'] = token;
-    //     setAuthenticated(true);
-    //   } else {
-    //     setAuthenticated(false);
-    //   }
-    // }
-		setAuthenticated(true);
-  }, [setAuthenticated]);
-
-  //obtaining user name on auth state change
-  // useEffect(() => {
-  //   fetchUserName(authenticated, api_key);
-  // }, [authenticated, fetchUserName]);
+      if (decodedToken.exp * 1000 > Date.now()) {
+        axios.defaults.headers.common['Authorization'] = token;
+        setAuthenticated(true);
+				setUsername(decodedToken.name)
+      } else {
+        setAuthenticated(false);
+      }
+    }
+  }, [setAuthenticated, setUsername]);
 
   const setAuthorizationHeader = (token) => {
     const FBIdToken = `bearer ${token}`;
@@ -159,7 +150,6 @@ const mapDispatchToProps = {
   setShowSnackBar,
   setUsername,
   fetchInstructionsHandler,
-  fetchUserName,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
