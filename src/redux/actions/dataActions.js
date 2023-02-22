@@ -139,7 +139,8 @@ export const fetchInstructionsHandler =
         }
       })
       .catch((error) => {
-        // handle error
+				// handle error
+				dispatch(setFoundUnit(false));
         console.log(error);
       })
       .then(() => {

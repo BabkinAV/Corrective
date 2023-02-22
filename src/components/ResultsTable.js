@@ -38,7 +38,7 @@ function ResultsTable({ unitNo, foundUnit}) {
     >
       <Grid item xs={12} sx={{ mb: 2 }}>
         <Typography variant="h3">{
-          foundUnit ? ` Your upgrade documents found for unit ${unitNo}:` : `No upgrade document(s) found for unit ${unitNo}`
+          foundUnit ? ` Your upgrade documents found for the unit ${unitNo}:` : `No upgrade document(s) found for the unit ${unitNo}`
         }
         </Typography>
       </Grid>
