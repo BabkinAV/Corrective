@@ -143,17 +143,16 @@ const SignIn = ({ signInOpen, setSignInClose, onAuthTokenObtained }) => {
       setSignInLoading(true);
       axios
         .post(
-          `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${api_key}`,
+          `${process.env.REACT_APP_BASE_URL}/auth/login`,
           {
             email: email.value,
             password: password.value,
-            returnSecureToken: true,
           }
         )
         .then((response) => {
           setSignInLoading(false);
-          const myData = response.data;
-          onAuthTokenObtained(myData.idToken);
+          const token = response.data.token;
+          onAuthTokenObtained(token);
           dispatch({ type: 'RESET_FORM' });
           setShowError(false);
           setSignInClose();
@@ -162,9 +161,9 @@ const SignIn = ({ signInOpen, setSignInClose, onAuthTokenObtained }) => {
           // handle error
           setSignInLoading(false);
           console.log(error);
-          if (error.response.data.error.message === 'EMAIL_NOT_FOUND') {
+          if (error.response.data.message === 'A user with this email could not be found') {
             setBackendError('Email not found');
-          } else if (error.response.data.error.message === 'INVALID_PASSWORD') {
+          } else if (error.response.data.message === 'Wrong password') {
             setBackendError('Incorrect password');
           } else {
             setBackendError('Something went wrong');

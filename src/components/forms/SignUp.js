@@ -23,7 +23,6 @@ import {
   validateInput,
 } from '../../helpers/formUtils';
 
-const api_key=process.env.REACT_APP_GOOGLE_API_KEY;
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
