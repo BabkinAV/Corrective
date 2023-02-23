@@ -8,7 +8,7 @@ import {
 } from '../types';
 import axios from 'axios';
 
-import { setStatusUpdateLoading, setShowSnackBar, setIsLoading } from './uiActions';
+import { setStatusUpdateLoading, setShowSnackBar, setIsLoading, setIsDataLoading } from './uiActions';
 
 export const setSelected = (selected) => {
   return {
@@ -116,6 +116,7 @@ export const handleClick = (event, id) => (dispatch, getState) => {
 
 export const fetchInstructionsHandler =
   (firstLoad, unitNoInputRef) => (dispatch) => {
+		dispatch(setIsDataLoading(true))
     
     !firstLoad && dispatch(setIsLoading(true));
 
@@ -130,6 +131,7 @@ export const fetchInstructionsHandler =
         `${process.env.REACT_APP_BASE_URL}/unit/${inputNoObtained}`
       )
       .then((response) => {
+				dispatch(setIsDataLoading(false))
         const myData = response.data;
         if (myData.unit.instructions.length > 0) {
           dispatch(setRows(myData.unit.instructions));
@@ -140,10 +142,11 @@ export const fetchInstructionsHandler =
       })
       .catch((error) => {
 				// handle error
+				dispatch(setIsDataLoading(false))
 				dispatch(setFoundUnit(false));
         console.log(error);
       })
-      .then(() => {
+      .finally(() => {
         dispatch(setIsLoading(false));
       });
   };

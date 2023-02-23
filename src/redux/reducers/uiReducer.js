@@ -4,7 +4,8 @@ import {
   SET_SHOW_SNACKBAR,
   SET_IS_LOADING,
   SET_MODAL_OPEN,
-  SET_ABOUT_OPEN
+  SET_ABOUT_OPEN,
+	SET_IS_DATA_LOADING
 } from '../types';
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
     severity: 'success',
   },
   isLoading: false,
+	isDataLoading: false,
   isModalOpen: false,
   isAboutOpen: false,
 };
@@ -27,6 +29,8 @@ export const uiReducer = (state = initialState, action) => {
       return { ...state, authenticated: action.payload };
     case SET_IS_LOADING:
       return { ...state, isLoading: action.payload };
+    case SET_IS_DATA_LOADING:
+      return { ...state, isDataLoading: action.payload };
     case SET_SHOW_SNACKBAR:
       return {
         ...state,

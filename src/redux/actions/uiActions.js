@@ -4,6 +4,7 @@ import { SET_AUTHENTICATED } from '../types';
 import { SET_SHOW_SNACKBAR } from '../types';
 import { SET_MODAL_OPEN } from '../types';
 import { SET_ABOUT_OPEN } from '../types';
+import { SET_IS_DATA_LOADING } from '../types';
 
 export const setStatusUpdateLoading = (isStatusUpdateLoading) => {
   return {
@@ -16,6 +17,12 @@ export const setIsLoading = (isLoading) => {
   return {
     type: SET_IS_LOADING,
     payload: isLoading,
+  };
+};
+export const setIsDataLoading = (isDataLoading) => {
+  return {
+    type: SET_IS_DATA_LOADING,
+    payload: isDataLoading,
   };
 };
 
