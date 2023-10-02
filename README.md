@@ -18,6 +18,7 @@ This app was created as a part of solo prework project for Chingu cohort.  It is
  - Sorting of search items results
  - Authorized users can also change status of search items via responsive table toolbar
  - Changes to statuses are being saved to MongoDB database on Save click.
+ - Companion React Native App:  [https://github.com/BabkinAV/corrective-android](https://github.com/BabkinAV/corrective-android)
 
 ## Tech used / dependencies
 1.  [Create React App](https://reactjs.org/docs/create-a-new-react-app.html)
